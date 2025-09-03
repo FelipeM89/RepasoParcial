@@ -1,24 +1,12 @@
-/* lambda_checker.l
-   Analizador para verificar una asignación de lambda en Python
-   y una llamada posterior a esa función.
-
-   Uso:
-     flex lambda_checker.l
-     gcc lex.yy.c -lfl -o verificador
-     ./verificador archivo.txt
-*/
-
 %{
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
-/* Variables globales */
 int encontro_lambda = 0;
 int encontro_print = 0;
 char nombre_lambda[128] = "";
 
-/* Función para quitar espacios al inicio y final de un texto */
 void quitar_espacios(char *s) {
     char *inicio = s;
     while (*inicio && isspace((unsigned char)*inicio)) inicio++;
@@ -34,13 +22,11 @@ void quitar_espacios(char *s) {
 
 %option noyywrap
 
-/* Definiciones de patrones */
 ID       [A-Za-z_][A-Za-z0-9_]*
 LINEA    [^\n]*
 
 %%
 
-/* Regla: detectar asignación tipo "nombre = lambda ..." */
 ^[ \t]*{ID}[ \t]*=[ \t]*lambda{LINEA} {
     char izquierda[128];
     char *igual = strchr(yytext, '=');
@@ -60,7 +46,6 @@ LINEA    [^\n]*
     }
 }
 
-/* Regla: detectar llamada dentro de print(...) */
 ^[ \t]*print[ \t]*\({LINEA}\) {
     if (encontro_lambda && nombre_lambda[0] != '\0') {
         char patron[256];
@@ -72,10 +57,8 @@ LINEA    [^\n]*
     }
 }
 
-/* Ignorar espacios y saltos de línea */
 [ \t\n]+    ;
 
-/* Ignorar cualquier otro carácter */
 .           ;
 
 %%
