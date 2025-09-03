@@ -37,7 +37,7 @@ awk --version
 Guarda el script en un archivo llamado token.awk:
 
 #!/usr/bin/awk -f
-
+```
 function classify(tok) {
     if (tok ~ /^\+\+$/)        return "INCREMENT";
     else if (tok ~ /^\+$/)     return "PLUS";
@@ -54,7 +54,8 @@ function classify(tok) {
     }
 }
 
-
+```
+```
 Crea un archivo de entrada, por ejemplo tokens.txt:
 
 +
@@ -68,7 +69,7 @@ Crea un archivo de entrada, por ejemplo tokens.txt:
 a
 +++
 42 + ++ 3.14
-
+```
 
 Ejecuta el reconocedor:
 
