@@ -92,3 +92,30 @@ Buscará líneas print(...) y verificará si dentro del print hay una llamada a 
 Si se detectan ambos (definición + llamada a la misma función) -> imprimirá ACEPTA, sino NO ACEPTA.
 
 Notas de robustez: el scanner es pragmático: acepta diferentes espacios y formas simples; no pretende validar el Python completo (si necesitas una verificación completa de expresiones, habría que usar Yacc/Bison o un parser más poderoso).
+
+
+---
+
+
+
+En terminal, ejecutar:
+
+flex lambda_checker.l
+gcc lex.yy.c -lfl -o verificador
+./verificador archivo.txt
+
+
+Ejemplo de archivo.txt:
+
+cuadrado = lambda x: x ** 2
+print(cuadrado(3))
+
+
+Resultado:
+
+ACEPTA
+
+
+Si falta la llamada o está mal escrito, dirá:
+
+NO
